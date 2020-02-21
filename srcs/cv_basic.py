@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QInputDialog
 from scipy import ndimage
 import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 import math
 
@@ -134,3 +135,31 @@ def rotate_image(self):
                 if 0 <= x_ < nCol and 0 <= y_ < nRow:
                     self.output_array[RGB, int(y_), int(x_)] = \
                         self.input_array[RGB, y, x]
+
+def hist_image(self):
+    if self.output_array is None:
+        return
+    inputHist = np.zeros((3,256))
+    outputHist = np.zeros((3,256))
+    inputWidth = self.input_array.shape[2]
+    inputHeight = self.input_array.shape[1]
+    outputWidth = self.output_array.shape[2]
+    outputHeight = self.output_array.shape[1]
+    for RGB in range(3):
+        inputHist[RGB] = np.histogram(self.input_array[RGB], bins=256)[0]
+        outputHist[RGB] = np.histogram(self.output_array[RGB], bins=256)[0]
+
+    fig = plt.figure()
+    r = fig.add_subplot(3,2,1)
+    g = fig.add_subplot(3,2,3)
+    b = fig.add_subplot(3,2,5)
+    r.plot(inputHist[0], color='r')
+    g.plot(inputHist[1], color='g')
+    b.plot(inputHist[2], color='b')
+    r2 = fig.add_subplot(3,2,2)
+    g2 = fig.add_subplot(3,2,4)
+    b2 = fig.add_subplot(3,2,6)
+    r2.plot(outputHist[0], color='r')
+    g2.plot(outputHist[1], color='g')
+    b2.plot(outputHist[2], color='b')
+    plt.show()

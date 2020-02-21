@@ -107,49 +107,9 @@ class MyWindow(QMainWindow, form_class):
         cv_basic.rotate_image(self)
         self.displayOutputImage()
 
-
 ####### 통계처리
     def histogram(self):
-        if self.output_array is None:
-            return
-    # 1. 변수선언 및 메모리 할당 - RGB 히스토그램 배열
-        inputHist = np.zeros((3,256))
-        outputHist = np.zeros((3,256))
-
-        channel = 3 # 채널갯수 (R, G, B)
-            # self.input_array.shape = (3,1080,1920) 채널, 높이, 너비
-        inputWidth =self.input_array.shape[2]
-        inputHeight = self.input_array.shape[1]
-        outputWidth = self.output_array.shape[2] # width = nCol = c = [2] = x
-        outputHeight = self.output_array.shape[1] # height = nRow = r = [1] = y
-        
-    # 2. 알고리즘 - 히스토그램 계산 / 시각화   
-    #    for RGB in range(channel):
-    #        for r in range(inputHeight):
-    #            for c in range(inputWidth):
-    #                inputHist[RGB][int(self.input_array[RGB][r][c])] += 1
-    #    11초 -> 0.04초
-        #self.input_array = self.input_array.astype(np.uint8)
-        #self.output_array = self.output_array.astype(np.uint8)
-        for RGB in range(3):
-            inputHist[RGB] = np.histogram(self.input_array[RGB], bins=256)[0]
-            outputHist[RGB] = np.histogram(self.output_array[RGB], bins=256)[0]
-        
-        fig = plt.figure()
-        r = fig.add_subplot(3,2,1)
-        g = fig.add_subplot(3,2,3)
-        b = fig.add_subplot(3,2,5)
-        r.plot(inputHist[0], color='r')
-        g.plot(inputHist[1], color='g')
-        b.plot(inputHist[2], color='b')
-
-        r2 = fig.add_subplot(3,2,2)
-        g2 = fig.add_subplot(3,2,4)
-        b2 = fig.add_subplot(3,2,6)
-        r2.plot(outputHist[0], color='r')
-        g2.plot(outputHist[1], color='g')
-        b2.plot(outputHist[2], color='b')
-        plt.show()
+        cv_basic.hist_image(self)
 
     def histogramEqualization(self):
         start = time.time()
