@@ -16,6 +16,7 @@ import random
 
 from srcs import cv_files
 from srcs import cv_image
+from srcs import cv_basic
 
 # pip install pillow numpy PyQt5 
 # Anaconda/Library/bin/qt_designer.exe
@@ -76,26 +77,17 @@ class MyWindow(QMainWindow, form_class):
         cv_files.open_image_file(self)
 
     def saveImage(self):
-        cv_files.save_image_file(self)    
-    
+        cv_files.save_image_file(self)  
+
     def out2in(self):
         cv_image.set_base_image(self)
-    
-    # outputArray를 outputImage로 변환하고, 이를 또다시 outputPixmap으로 변환해서 출력 라벨에 보여준다
+
     def displayOutputImage(self, nRow=0, nCol=0):
         cv_image.display_output_image(self, nRow, nCol)
 
 ####### 화소처리
     def brightnessControl(self):
-        # 얼마나 조절할지 입력
-        intValue = QInputDialog.getInt(self,"test", "brightness(-255~255)")
-        start = time.time()
-
-        # 1. 변수선언 및 메모리 할당 - output_array 브로드캐스팅
-        self.output_array = self.input_array + intValue[0]
-
-        # 2. 알고리즘
-        self.output_array = np.where(self.output_array > 255, 255, np.where(self.output_array < 0 , 0, self.output_array))
+        cv_basic.brightness_control(self)
         self.displayOutputImage()
 
     def binary(self):

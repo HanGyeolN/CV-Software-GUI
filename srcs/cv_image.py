@@ -1,5 +1,4 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QColor, QImage, QPixmap
 import numpy as np
 import math
 
@@ -50,14 +49,16 @@ def display_output_image(self, nRow=0, nCol=0):
     for r in range(nRow):  # r -> x , c -> y
         for c in range(nCol):
             # rgb -> pixel -> image -> pixmap
-            color.setRgbF(self.output_array[0][r][c] / 255, self.output_array[1][r][c] / 255,
-                            self.output_array[2][r][c] / 255)  # rgb -> pixel
+            color.setRgbF(self.output_array[0][r][c] / 255,
+                          self.output_array[1][r][c] / 255,
+                          self.output_array[2][r][c] / 255)  # rgb -> pixel
             # color Pixel -> Image[x,y]
             self.output_image.setPixel(c, r, color.rgb())
     self.output_pixmap = QPixmap.fromImage(self.output_image)
     # 참고: https://cnpnote.tistory.com/entry/PYTHON-numpy-%EB%B0%B0%EC%97%B4%EC%9D%84-PySide-QPixmap%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98
     # 3. 보이는 크기 조절
-    if self.output_image.width() > self.viewCol or self.output_image.height() > self.viewRow:
+    if (self.output_image.width() > self.viewCol or 
+        self.output_image.height() > self.viewRow):
         pm = get_fixed_pixmap(self, self.output_array)
         self.labelOutput.setPixmap(pm)
     else:
