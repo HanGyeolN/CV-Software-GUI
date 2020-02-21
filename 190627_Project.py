@@ -100,103 +100,16 @@ class MyWindow(QMainWindow, form_class):
 
 ####### 기하처리
     def resizing(self):
-        inputText = QInputDialog.getText(self, "title", "Size(폭x넓이) ")
-
-        # 1. 변수선언 및 메모리 할당 - 변경할 크기
-        inputWidth = self.input_image.width()
-        inputHeight = self.input_image.height() 
-
-        outputWidth, outputHeight = inputText[0].split("x")
-        outputWidth = int(outputWidth)
-        outputHeight = int(outputHeight)
-
-        widthRatio = outputWidth/inputWidth
-        heightRatio = outputHeight/inputHeight        
-        self.output_array = np.zeros((3,outputHeight, outputWidth))
-        
-        # 2. 알고리즘 - 이미지 크기 변경
-        for RGB in range(3):
-            for r in range(outputHeight):
-                for c in range(outputWidth):
-                    r_ = math.floor(r/heightRatio)
-                    c_ = math.floor(c/widthRatio)
-                    value = self.input_array[RGB][r_][c_]
-
-                    self.output_array[RGB][r][c] = value
-        
-        #self.output_array.astype(np.uint8)
-        self.displayOutputImage(outputHeight, outputWidth)       
-
+        cv_basic.resize_image(self)
+        self.displayOutputImage()       
     
     def rotation(self):
-        radList = []        
-        Rpos = QInputDialog.getText(self, "회전할 방향 입력", "방향: (x,y,z)")
-        Rpos = Rpos[0]
-        degree = QInputDialog.getText(self, "회전할 각도 입력", "각도: ")
-        degree = float(degree[0])
-        radian = degree * math.pi / 180
-        #radList.append(radian)
-
-        #        
-        nCol = self.input_image.width()
-        nRow = self.input_image.height()
-        self.output_array = np.zeros((3,nRow,nCol))
-
-
-        cos = math.cos(radian)
-        sin = math.sin(radian)        
-
-        x_ = 0
-        y_ = 0
-        temp = 0
-
-        # 회전시 평행이동 이슈 -> 중점(x,y)을 회전시키고 그 점이 이동한만큼 다시 평행이동.
-        originalCenter_x = nCol//2
-        originalCenter_y = nRow//2
-
-        (rotatedCenter_x, rotatedCenter_y, temp) = np.array([originalCenter_x, originalCenter_y, 1]) @ np.array([[cos, -sin, 0],
-                       [sin, cos,  0], [0, 0, 1]])
-        
-        move_x = originalCenter_x - rotatedCenter_x
-        move_y = originalCenter_y - rotatedCenter_y
-
-        Rx = np.array([[1, 0, 0],
-                       [0, cos, -sin],
-                       [0, sin,  cos]])
-
-        Ry = np.array([[cos, 0, sin],
-                       [0  ,  1,  0],
-                       [-sin, 0,cos]])
-
-        Rz = np.array([[cos, -sin, 0],
-                       [sin, cos,  0],
-                       [move_x, move_y,  1]]) # 평행이동 + 회전 
-                       # new_x = ( x * cos + y * sin ) + move_x
-                       # new_y = ( x *-sin + y * cos ) + move_y
-                       # 
-        if Rpos == 'x':
-            R = Rx
-        elif Rpos == 'y':
-            R = Ry
-        elif Rpos == 'z':
-            R = Rz
-        else:
-            return   
-        
-        for RGB in range(3):
-            for x in range(nCol):
-                for y in range(nRow):
-                    (x_, y_, temp) = np.array([x, y, 1]) @ R
-                    
-                    if 0 <= x_ < nCol and 0 <= y_ < nRow:
-                        self.output_array[RGB, int(y_), int(x_)] = self.input_array[RGB, y, x]
+        cv_basic.rotate_image(self)
         self.displayOutputImage()
 
 
 ####### 통계처리
     def histogram(self):
-        start = time.time()
-
         if self.output_array is None:
             return
     # 1. 변수선언 및 메모리 할당 - RGB 히스토그램 배열
