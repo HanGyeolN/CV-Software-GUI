@@ -34,6 +34,7 @@
 
 
 
-### Execute
+### Execution
 
-freeze
+- $pip install -r requrements.txt
+- $python main.py
