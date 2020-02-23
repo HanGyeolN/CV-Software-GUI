@@ -36,5 +36,7 @@
 
 ### Execution
 
-- $pip install -r requrements.txt
-- $python main.py
+```
+$pip install -r requrements.txt
+$python main.py
+```
