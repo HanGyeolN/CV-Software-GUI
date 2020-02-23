@@ -2,11 +2,6 @@
 # Edit at https://www.gitignore.io/?templates=python
 
 ### Python ###
-# Deep-Learning Models
-haar/
-mask-rcnn/
-object-detection-deep-learning/
-MobileNet*
 *.pdf
 *.pptx
 # Byte-compiled / optimized / DLL files

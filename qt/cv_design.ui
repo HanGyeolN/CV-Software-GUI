@@ -95,8 +95,8 @@
     </property>
     <addaction name="actionOpenImage"/>
     <addaction name="actionSaveImage"/>
-    <addaction name="actionLoadFromDB"/>
     <addaction name="actionSaveToDB"/>
+    <addaction name="actionLoadFromDB"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -270,7 +270,7 @@
      <normaloff>:/newPrefix/icon/DataBase_01.png</normaloff>:/newPrefix/icon/DataBase_01.png</iconset>
    </property>
    <property name="text">
-    <string>openFromDB</string>
+    <string>DB에 저장</string>
    </property>
   </action>
   <action name="actionSaveToDB">
@@ -279,7 +279,7 @@
      <normaloff>:/newPrefix/icon/DataBase_In_01.png</normaloff>:/newPrefix/icon/DataBase_In_01.png</iconset>
    </property>
    <property name="text">
-    <string>saveToDB</string>
+    <string>DB에서 열기</string>
    </property>
   </action>
   <action name="actionBinary">

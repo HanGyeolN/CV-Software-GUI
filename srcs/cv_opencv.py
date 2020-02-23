@@ -71,7 +71,7 @@ def object_detection(self):
             cv2.rectangle(photo, (startX, startY), (endX, endY), COLORS[idx], 4)
             y = startY - 15 if startY - 15 > 15 else startY + 15
             cv2.putText(photo, label, (startX, y),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
+                        cv2.FONT_HERSHEY_SIMPLEX, 1.0, COLORS[idx], 2)
     self.output_array = photo.transpose(2,0,1)
 
 def object_detection_mask_rcnn(self):
@@ -174,5 +174,5 @@ def object_detection_mask_rcnn(self):
             # instance segmentation on the image
             text = "{}: {:.4f}".format(LABELS[classID], confidence)
             cv2.putText(clone, text, (startX, startY - 5),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+                        cv2.FONT_HERSHEY_SIMPLEX, 1.0, color, 2)
     self.output_array = clone.transpose(2, 0, 1)
