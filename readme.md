@@ -16,13 +16,13 @@
 
 ### Image Processing
 
-<img src=".\readme\imgs\pic3.jpg" alt="title" style="zoom:100%;" />
+<img src=".\readme\imgs\pic3.JPG" alt="Image Processing pic" style="zoom:100%;" />
 
 
 
 ### Database - sqlite
 
-<img src=".\readme\imgs\pic4.jpg" alt="title" style="zoom:100%;" />
+<img src=".\readme\imgs\pic4.JPG" alt="sqlite pic" style="zoom:100%;" />
 
 
 
