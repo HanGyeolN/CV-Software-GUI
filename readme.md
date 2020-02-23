@@ -37,6 +37,6 @@
 ### Execution
 
 ```
-$pip install -r requrements.txt
+$pip install -r requirements.txt
 $python main.py
 ```
